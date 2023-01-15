@@ -9,15 +9,17 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
-        // Assumption that all numbers are unique
-        unordered_set<int> seen;
-        ListNode *curr = head;
-        while (curr)
-        {
-            if (seen.find(curr->val) != seen.end()) return true;
-            seen.insert(curr->val);
-            curr = curr->next;
-        }
-        return false;
+    ListNode *slow = head;
+    ListNode *fast = head;
+
+    while (fast && fast->next)
+    {
+        slow = slow->next;
+        fast = fast->next->next;
+
+        if (slow == fast) return true;
+    }
+    return false;
     }
 };
+
